@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div>TODO write content</div>
+        
+        <form name="formulario" action="salida.jsp">
+            <table border="1">
+                <thead>
+                        Ingreso al sistema
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Nombre</td>
+                        <td><input type="text" name="nombre" value="" /></td>
+                    </tr>
+                    <tr>
+                        <td>Password</td>
+                        <td><input type="password" name = "password"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <input type="submit" name ="bontonIngreso" value="Ingresar al sistema"/>
+        </form>
+       
+        <form name="ingresarExcel">
+            
+        </form>
+        
+        <form method="POST" enctype="multipart/form-data" name="ingreso" action="SalidaController">
+                <input type="file" name="excel" value="Seleccione el archivo excel a subir" width="200" />
+            <input type="submit" value="Subir Excel" name="ingresarExcel" />
+        </form>
+    </body>
+</html>
