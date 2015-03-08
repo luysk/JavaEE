@@ -124,7 +124,7 @@ public class Excel {
 		switch (celda.getCellType()) {
 
 			case 0:
-				valor = "" + celda.getNumericCellValue();
+				valor = "" + (int)celda.getNumericCellValue();
 				break;
 			case 1:
 				valor = "" + celda.getStringCellValue();

@@ -16,16 +16,36 @@
     <body>
         <jsp:useBean id="BeanDatosExcel" scope="request" class="com.luis.bean.BeanDatosExcel" />
         <jsp:getProperty name="BeanDatosExcel" property="nombre" />
-       
-            <% List mi_archivo_excel = BeanDatosExcel.getMiExcel();
-            for (int i = 0; i < mi_archivo_excel.size(); i++) {
-			List celdas = (List) mi_archivo_excel.get(i);
-			for (int j = 0; j < celdas.size(); j++) { %>
-				<%= celdas.get(j) %>
-			<%}%>
-                        <br><br/>
-		<%}
-        %>
+  
+        
+        <table border="1">
+        <%
+            List mi_archivo_excel = BeanDatosExcel.getMiExcel();
+            
+            for(int i = 0;i<mi_archivo_excel.size();i++){%>
+            <tr>
+                <%
+                List celdas = (List) mi_archivo_excel.get(i);
+                for(int j =0;j<celdas.size();j++){%>
+                    <td style=padding:3px ><%= celdas.get(j) %></td>
+                <%}%>
+            </tr>
+            <%}%>
+ </table>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
       
  </body>                                                                 
  </html>

@@ -6,14 +6,16 @@
 
 package com.luis.controllers;
 
+import com.luis.bean.BeanDatosExcel;
 import com.luis.clases.Excel;
+import com.luis.clases.Validacion_Excel;
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.luis.bean.BeanDatosExcel;
 
 
 /**
@@ -37,20 +39,31 @@ public class SalidaController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
            
         BeanDatosExcel datosExcel = new BeanDatosExcel();
+        Validacion_Excel val = new Validacion_Excel();
         Excel mi_clase_excel = new Excel();
         String ruta = mi_clase_excel.guardarArchivo(request);        
         if(!ruta.equals("-1")){
-            datosExcel.setMiExcel(mi_clase_excel.leerExcel(ruta));       
-            if(datosExcel.getMiExcel()!= null){
-                datosExcel.setNombre("Hermano de Jorel");
-                request.setAttribute("BeanDatosExcel", datosExcel);
-                request.getRequestDispatcher("recepcionExcel.jsp").forward(request, response);
+            
+            List excel = mi_clase_excel.leerExcel(ruta); // falta verificar que no sea nulo
+            
+            List a = val.verificar_excel(excel);
+            if(a !=null ){
+                if(a.isEmpty()){                    
+                    datosExcel.setNombre("Hermano de Jorel");
+                    request.setAttribute("BeanDatosExcel", datosExcel);
+                    request.getRequestDispatcher("recepcionExcel.jsp").forward(request, response);
+                }else{
+                    request.getRequestDispatcher("salida.jsp").forward(request, response); //hay errores
+                    System.err.println("Aqui 1");
+                }
             }else{
                 request.getRequestDispatcher("salida.jsp").forward(request, response);
+                System.err.println("Aqui 2");
             }
         }else{
             System.out.println("Noooooooooooooooooooooooooooooooooooooooooooop");
             request.getRequestDispatcher("salida.jsp").forward(request, response);
+            System.err.println("Aqui 3");
         }                
     }
 
