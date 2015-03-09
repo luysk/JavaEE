@@ -6,6 +6,8 @@
 
 package com.luis.controllers;
 
+import com.luis.basedatos.Base_Adapter;
+import com.luis.basedatos.ConexionBase;
 import com.luis.bean.BeanDatosExcel;
 import com.luis.clases.Excel;
 import com.luis.clases.Validacion_Excel;
@@ -39,6 +41,7 @@ public class SalidaController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
            
         BeanDatosExcel datosExcel = new BeanDatosExcel();
+        ConexionBase base = new ConexionBase();        
         Validacion_Excel val = new Validacion_Excel();
         Excel mi_clase_excel = new Excel();
         String ruta = mi_clase_excel.guardarArchivo(request);        
@@ -48,8 +51,11 @@ public class SalidaController extends HttpServlet {
             
             List a = val.verificar_excel(excel);
             if(a !=null ){
-                if(a.isEmpty()){                    
-                    datosExcel.setNombre("Hermano de Jorel");
+                if(a.isEmpty()){  
+                    Base_Adapter adapter = new Base_Adapter(base);
+                    adapter.insertar(excel);
+                    datosExcel.setNombre("Datos insertados");
+                    datosExcel.setMiExcel(excel);                    
                     request.setAttribute("BeanDatosExcel", datosExcel);
                     request.getRequestDispatcher("recepcionExcel.jsp").forward(request, response);
                 }else{

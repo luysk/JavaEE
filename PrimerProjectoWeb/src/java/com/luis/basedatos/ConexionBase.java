@@ -23,17 +23,23 @@ public class ConexionBase {
            
     public ConexionBase (){
         
-        //Class.forName("org.postgresql.Driver");
-        try {
-            String ubicacion_base = "jdbc:postgresql://localhost:5432/BaseJuegos";
-            String constaseña = "password";
-            conexion_base = DriverManager.getConnection(ubicacion_base,"postgres",constaseña);
-            conexion_correcta = 1;
-        } catch (SQLException e) {
+        try{
+            Class.forName("org.postgresql.Driver");
+            System.err.println("Se hizo");
+            try {
+                String ubicacion_base = "jdbc:postgresql://localhost:5432/BaseJuegos";
+                String constaseña = "password";
+                conexion_base = DriverManager.getConnection(ubicacion_base,"postgres",constaseña);
+                conexion_correcta = 1;
+            } catch (SQLException e) {
+                e.printStackTrace();
+                conexion_correcta = -1;
+            }
+        }catch(ClassNotFoundException e){
             e.printStackTrace();
-            conexion_correcta = -1;
+            System.err.println("No se ha encontrado la clase");
         }
-        System.err.println("Se hizo");
+        
     }
     
     public int getConexion_correcta() {
